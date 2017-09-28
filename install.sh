@@ -1,6 +1,6 @@
 #!/bin/bash
 
-dir="~/.wsl"
+dir="$HOME/.wsl"
 echo "Welcome to easyWSLbash installer"
 
 mkdir -p $dir
