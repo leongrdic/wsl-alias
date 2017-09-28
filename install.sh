@@ -8,6 +8,7 @@ cd $dir
 git clone https://github.com/leongrdic/easyWSLbash.git
 mv easyWSLbash/* .
 rm -r easyWSLbash
+chmod +x b.sh
 
 echo "I need root access to setup a new user that will be used for pre-mounting drives"
 

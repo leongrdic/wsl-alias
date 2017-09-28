@@ -6,8 +6,8 @@ wsl_sudo () {
   sudo -u "wsl" sudo $1
 }
 
-if [ -f "$dir/.env" ]; then
-  source "$dir/.env"
+if [ -f "$dir/env.sh" ]; then
+  source "$dir/env.sh"
 fi
 
 uri="$1"
