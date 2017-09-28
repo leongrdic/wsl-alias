@@ -4,7 +4,7 @@ dir="~/.wsl"
 echo "Welcome to easyWSLbash installer"
 
 mkdir -p $dir
-cd -p $dir
+cd $dir
 git clone https://github.com/leongrdic/easyWSLbash.git
 mv easyWSLbash/* .
 rm -r easyWSLbash
