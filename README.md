@@ -12,12 +12,13 @@ If you still don't understand what that means, here are a few examples (all comm
 
 ```
 > b apt-get install php-cli
-> b php -v
+> b php 
 ```
 
 ```
-> b nano settings.txt
-> b cat settings.txt
+> cd Z:\Projects
+> b pwd
+/mnt/z/Projects
 ```
 
 ## Features
@@ -25,8 +26,8 @@ If you still don't understand what that means, here are a few examples (all comm
 Here's a quick overview of the features:
 -   pass commands to bash without escaping them
 -   use Ubuntu programs and scripts as if they were installed in Windows
--   create a file with environment variables and code that will be loaded when executing files or entering an interactive shell (solves [this](https://github.com/Microsoft/BashOnWindows/issues/219))
--   automatically mounting the drives that Windows doesn't - with different filesystems and even network drives (solves [this](https://superuser.com/a/1133984/413987))
+-   create a file with environment variables and code that will be loaded when executing commands or entering an interactive shell (solves [this](https://github.com/Microsoft/BashOnWindows/issues/219))
+-   automatically mount the drives that WSL doesn't - with different filesystems and even network drives (solves [this](https://superuser.com/a/1133984/413987))
 -   translates your current Windows path into the WSL path
 
 ## Installation
@@ -51,7 +52,7 @@ b [cmd]    # executes the command cmd in WSL
 ### It doesn't work
 1.  are you running Windows 10 version 1709 (build 16215 or later)?
 1.  have you updated the PATH environment variable in Windows?
-1.  do you have the latest updates installed (on both Windows and Ubuntu)
+1.  do you have the latest updates installed (on both Windows and Ubuntu)?
 
 ### I get errors regarding quotes (`"` or `'`)
 Are you using PowerShell? This script doesn't work with `cmd`.
