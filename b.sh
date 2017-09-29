@@ -1,6 +1,13 @@
 #!/bin/bash
 
 dir="$HOME/.wsl"
+uri="$1"
+arg="$2"
+wsl="0"
+
+if [ -z "$arg" ]; then
+  wsl="1"
+fi
 
 wsl_sudo () {
   sudo -u "wsl" sudo $1
@@ -10,7 +17,6 @@ if [ -f "$dir/env.sh" ]; then
   source "$dir/env.sh"
 fi
 
-uri="$1"
 uri=$(echo "$uri" | sed 's/\\/\//g')
 uri=$(echo "$uri" | sed 's/://g')
 uri=$(echo "$uri" | sed 's/^./\L&\E/')
@@ -26,7 +32,6 @@ fi
 
 cd "$uri"
 
-arg="$2"
 if [ -z "$arg" ]; then
   arg="bash"
 fi
