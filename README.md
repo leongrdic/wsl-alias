@@ -26,8 +26,8 @@ If you still don't understand what that means, here are a few examples (all comm
 Here's a quick overview of the features:
 -   pass commands to bash without escaping them
 -   use Ubuntu programs and scripts as if they were installed in Windows
--   create a file with environment variables and code that will be loaded when executing commands or entering an interactive shell (solves [this](https://github.com/Microsoft/BashOnWindows/issues/219))
--   automatically mount the drives that WSL doesn't - with different filesystems and even network drives (solves [this](https://superuser.com/a/1133984/413987))
+-   create a file with environment variables and code that will be loaded when executing commands or entering an interactive shell (solves [this](https://github.com/Microsoft/BashOnWindows/issues/219))
+-  automatically mount the drives that WSL doesn't - with different filesystems and even network drives (solves [this](https://superuser.com/a/1133984/413987))
 -   translates your current Windows path into the WSL path
 
 ## Installation
@@ -89,8 +89,18 @@ When the last WSL window is closed, Windows automatically stops all bash service
 
 You could also use an approach like [this one](https://emil.fi/bashwin), props to that guy btw. Or just upvote [this](https://wpdev.uservoice.com/forums/266908-command-prompt-console-bash-on-ubuntu-on-windo/suggestions/13653522-consider-enabling-cron-jobs-daemons-and-background) to make Microsoft realize we need bash running in background.
 
+Note: there is an expeption when detecting if a drive is already mounted. If you're in the root of a drive (e.g. `Z:\`) it won't automatically get mounted because its directory (`/mnt/z`) already exists. To get around this add the auto mount to `env.sh`.
+
 ### What are the limitations of passing commands to bash?
 Unfortunately you can't pass all symbols to bash through `easyWSLbash`. Those include redirectors (`>`, `>>`, `<`, etc.), separators (`;`, `&&`, etc.). But you can always open an interactive shell and execute commands just like you would on Ubuntu!
+
+### Reinstallation or uninstallation
+If you want to reinstall (e.g. a newer version) simply run the installer script again.
+
+To uninstall just remove the `~/.wsl` directory like so:
+```
+rm -rf ~/.wsl
+```
 
 ### Any security implications?
 `easyWSLbash` creates a user `wsl` inside your WSL and gives it root privileges. That user has a disabled login, but your default account gets configured with access to it via `sudo`.
@@ -98,3 +108,6 @@ Unfortunately you can't pass all symbols to bash through `easyWSLbash`. Those in
 This shouldn't be considered a security risk since WSL is only supposed to be used for development purposes.
 
 If you find any security related bugs, please open an issue or better yet contact me personally. I do not guarantee that this code is 100% secure and it should be used at your own risk.
+
+
+
