@@ -12,7 +12,7 @@ If you still don't understand what that means, here are a few examples (all comm
 
 ```
 > b apt-get install php-cli
-> b php 
+> b php
 ```
 
 ```
@@ -27,7 +27,7 @@ Here's a quick overview of the features:
 -   pass commands to bash without escaping them
 -   use Ubuntu programs and scripts as if they were installed in Windows
 -   create a file with environment variables and code that will be loaded when executing commands or entering an interactive shell (solves [this](https://github.com/Microsoft/BashOnWindows/issues/219))
--  automatically mount the drives that WSL doesn't - with different filesystems and even network drives (solves [this](https://superuser.com/a/1133984/413987))
+-   automatically mount the drives that WSL doesn't - with different filesystems and even network drives (solves [this](https://superuser.com/a/1133984/413987))
 -   translates your current Windows path into the WSL path
 
 ## Installation
@@ -108,6 +108,3 @@ rm -rf ~/.wsl
 This shouldn't be considered a security risk since WSL is only supposed to be used for development purposes.
 
 If you find any security related bugs, please open an issue or better yet contact me personally. I do not guarantee that this code is 100% secure and it should be used at your own risk.
-
-
-
