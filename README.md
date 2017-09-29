@@ -65,10 +65,13 @@ b echo 'his name is ''John''.'       # prints: his name is 'John'.
 Please note that there is no way to escape double quotes (`"`) within single quotes (`'`) due to a batch scripting limitation. At least I think so... I spent hours trying to solve this, so if you know how to, feel free to open a PR. Thank you.
 
 ### How do I define global environment variables?
+The shell script `~/.wsl/env.sh` gets sourced in every command you pass through `easyWSLbash` and even in the interactive shell! So it's a great place to put all your environment variables and do stuff like mounting drives that aren't automatically mounted, loading up an `ssh-agent`, etc..
+
+You can check if the user passed any commands or started an interactive shell by checking the `$wsl` variable
 ```
-b nano ~/.wsl/env.sh
+$wsl == "0"     # a command was passed
+$wsl == "1"     # no commands passed - interactive shell
 ```
-This shell script (`~/.wsl/env.sh`) gets sourced in every command you pass through `easyWSLbash` and even in the interactive shell! So it's a great place to put all your environment variables and do stuff like mounting drives that aren't automatically mounted.
 
 How to set an environment variable:
 ```
