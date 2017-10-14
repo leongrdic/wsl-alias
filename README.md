@@ -54,6 +54,11 @@ b [cmd]    # executes the command cmd in WSL
 1.  have you updated the PATH environment variable in Windows?
 1.  do you have the latest updates installed (on both Windows and Ubuntu)?
 
+### Why does it require the Insider builds?
+There are a few features that aren't supported in the previous (LXSS) builds:
+-   executing commands as another user through `sudo`
+-   `drvfs` which allows for mounting any drive
+
 ### I get errors regarding quotes (`"` or `'`)
 Are you using PowerShell? This script doesn't work with `cmd`.
 Escaping works like this:
@@ -84,6 +89,8 @@ wsl_sudo "mount ....."
 ```
 
 ### My drives don't get automatically mounted or get unmounted
+First of all check if you have the right Windows 10 build.
+
 When you call `easyWSLbash` while being in a directory on a drive that's not automatically mounted in WSL, `easyWSLbash` actually tries to mount that drive before navigating to it inside the bash environment. This works for flash drives and network drives.
 
 If you always want to mount a drive, check the first question to add it to the `env.sh` file.
