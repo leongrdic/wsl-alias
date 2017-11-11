@@ -1,3 +1,56 @@
 #!/bin/bash
 
-ls ~/.wsl/bin/win
+dir="$HOME/.wsl"
+cd "$dir/bin/win/"
+
+if [ -z "$1" ]; then
+  echo "usage: wsl-alias [action] [argument1] [argument2]"
+  echo
+  echo "actions:"
+  echo "  list                      show a list of all aliases"
+  echo "  add [name] [command]      add a new alias"
+  echo "  remove [name]             remove an existing alias"
+elif [ "$1" == "list" ]; then
+  echo "aliases:"
+  for f in *.bat; do
+    printf '  %s\n' "${f%.bat}"
+  done
+elif [ "$1" == "add" ]; then
+  if [ -z "$2" ]; then
+    echo "error: no name specified"
+    exit 1
+  fi
+
+  cmd_path="$2.bat"
+
+  if [ -f "$cmd_path" ]; then
+    echo "error: alias already exists"
+    exit 1
+  fi
+
+  if [ -z "$3" ]; then
+    echo "error: no command specified"
+    exit 1
+  fi
+
+	cp "$dir/template.bat" "$cmd_path"
+	perl -pi -e "s/{alias}/$3/g" "$cmd_path"
+  echo "successfully added"
+elif [ "$1" == "remove" ]; then
+  if [ -z "$2" ]; then
+    echo "error: no name specified"
+    exit 1
+  fi
+
+  cmd_path="$2.bat"
+
+  if [ ! -f "$cmd_path" ]; then
+    echo "error: alias doesn't exist"
+    exit 1
+  fi
+
+  rm "$cmd_path"
+  echo "successfully removed"
+fi
+
+exit 0

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # adding our linux bin directory to path so you can access the 'wsl-add' command
-PATH=$PATH:~/.wsl/bin/linux
+PATH=$PATH:$HOME/.wsl/bin/linux
 
 if [ $wsl_interactive == "1" ]; then
   # execute only if started without command argument
