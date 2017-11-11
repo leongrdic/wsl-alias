@@ -63,4 +63,5 @@ echo "The installation has completed!"
 echo
 echo "Please add the following directory to your PATH enviroment variable in Windows:"
 echo "%localappdata%\\Packages\\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc\\LocalState\\rootfs$dir_win"
+echo "(this is the default directory or Ubuntu from Windows Store, your path might differ depending on the distro)"
 echo
