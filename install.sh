@@ -4,22 +4,22 @@ dir="$HOME/.wsl"
 user=$(whoami)
 
 echo
-echo "Welcome to easyWSLbash installer"
+echo "Welcome to wsl-alias installer"
 echo
 
 mkdir -p "$dir"
 cd "$dir"
 
-git clone https://github.com/leongrdic/easyWSLbash.git
+git clone https://github.com/leongrdic/wsl-alias.git
 if [ -f "$dir/env.sh" ]; then
-	rm -f easyWSLbash/env.sh
+	rm -f wsl-alias/env.sh
 fi
 
 echo
 echo "Moving files and fixing permissions"
 
-mv easyWSLbash/* .
-rm -rf easyWSLbash
+mv wsl-alias/* .
+rm -rf wsl-alias
 
 chmod +x wrapper.sh
 chmod +x bin/linux/wsl-alias
