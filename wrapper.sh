@@ -32,10 +32,10 @@ uri="/mnt/$uri"
 
 # mounting the drive if its not mounted
 
-uri_ls=$(ls -A "$uri")
+uri_letter=${uri:5:1}
+uri_root_ls=$(ls -A "/mnt/$uri_letter")
 
-if [ ! -d "$uri" ] || [ -z "$uri_ls" ]; then
-  uri_letter=${uri:5:1}
+if [ ! -d "$uri" ] || [ -z "$uri_root_ls" ]; then
   echo "wsl: attempting to mount drive $uri_letter:"
 
   wsl_sudo "mkdir -p /mnt/$uri_letter"
