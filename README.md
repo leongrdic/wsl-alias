@@ -38,15 +38,16 @@ First of all, make sure you're running the Fall Creators update or newer and hav
 curl -o- https://raw.githubusercontent.com/leongrdic/wsl-alias/master/install.sh | bash
 ```
 The install script will clone this repository and put it into the right directory with right permissions, create a new user and configure it.
-You will be asked for the __default alias__/command that will actually call the `bash` command. You can just leave it empty, which sets it to `b`.
+You will be asked to choose the __default alias__ (command that will actually call the `bash` command). You can just leave it empty, which sets it to `b`.
 
 Finally you will get a message from the installer with a path that you should copy and put into your user environment variable on Windows. ([here](https://stackoverflow.com/a/44272417/1830738)'s a beautiful tutorial)
 
-All you have to do now is open the PowerShell and start typing your first commands:
+All you have to do now is open the command line or PowerShell and start typing your first commands:
 ```
 b          # opens an interactive shell
 b [cmd]    # executes the command cmd in WSL
 ```
+note: if you chose a different default alias, use it instead of `b`
 
 ## Aliases
 Aliases allow you to call Linux commands from Windows. They pass all the arguments and the current directory and allow you to benefit of the auto-mount feature.
@@ -60,7 +61,7 @@ wsl-alias remove [name]              # removes an existing alias
 Make sure you don't remove the default alias (the one you specified during installation) or you might have to reinstall `wsl-alias`. This is because the command `wsl-alias` only works when you're accessing WSL using one of the existing aliases.
 
 ## `env.sh` script
-There's a shell script `~/.wsl/env.sh` which you can use to define environment variables, mount drives or run other scripts every time you use any of your aliases. For example you can include the _nvm initialization code_ or `ssh-agent` setup there.
+Yyou can use the shell script `~/.wsl/env.sh` to define environment variables, mount drives or run other scripts every time you use any of your aliases. For example you can include the _`nvm` initialization code_ or `ssh-agent` setup there.
 
 This script also directly serves as a replacement for `.bashrc`, of course only for user-added commands and variables. (note they will only be accessible when using one of your aliases)
 
@@ -69,20 +70,20 @@ The `$wsl_interactive` variable provides a way to find out if the user has passe
 $wsl_interactive == "0"     # a command was passed
 $wsl_interactive == "1"     # no commands passed
 ```
-This might be useful if you, for example, want to set up `ssh-agent`. You will only invoke it if the shell is interactive, there's no need otherwise.
+This might be useful if, for example, you want to set up `ssh-agent`. You will only invoke it if the shell is interactive, there's no need otherwise.
 
 Setting an environment variable:
 ```
 export variable="value"
 ```
 
-If you need to execute a command as root, and don't want to get prompted for the password each time, use the `wsl_sudo` function:
+If you need to execute a command as root, and don't want to get prompted for the password each time you use an alias, use the `wsl_sudo` function:
 ```
 wsl_sudo "whoami"
 ```
 
 ## Auto mounting
-When you call any alias, your current directory is taken from Windows and translated into WSL path (e.g. `/mnt/c/Users`). Windows already does this but not for all drives. That's where `wsl-alias` comes in - we check if the drive isn't already mounted and do it - without prompting you for the root password!
+When you call any alias, your current directory is taken from Windows and translated into a WSL path (e.g. `/mnt/c/Users`). Windows already does this but not for all drives. That's where `wsl-alias` comes in - we check if the drive isn't already mounted and do it without prompting you for the root password!
 
 As WSL only lives as long as its last session, you might not be able to access a drive if your current working directory is somewhere else but you're referencing the unmounted drive from the alias. That's why we provide you with a way to always mount your drive, whether you're just entering the interactive shell (using the default alias) or passing a command - add the following line to the `env.sh` file:
 ```
@@ -131,7 +132,7 @@ It's necessary to have this version because of a few features that weren't suppo
 -   `drvfs` which allows for mounting any drive
 
 ## Reinstallation or uninstallation
-If you want to reinstall (e.g. a newer version) simply run the installer command from above again.
+If you want to reinstall (e.g. a newer version) simply run the installer command again.
 
 To uninstall just remove the `~/.wsl` directory like so:
 ```
@@ -139,8 +140,8 @@ rm -rf ~/.wsl
 ```
 
 ## Security
-`wsl-alias` creates a user `wsl` inside your WSL and gives it root privileges. That user has a disabled login, but your default account gets configured with access to it via `sudo`.
+`wsl-alias` creates a user `wsl` inside your WSL and gives it root privileges. That user has a disabled login, but your default account gets configured with access to it through `sudo`.
 
-Since all WSL users have the same access to the Windows files (`/mnt/`), this shouldn't be considered a security risk, except if you have some important data protected with the Linux permissions.
+Since all WSL users have the same permissions for Windows files (`/mnt/`), this shouldn't be considered a security risk, except if you have some important data protected with the Linux permissions.
 
 If you find any security related bugs, please open an issue or better yet contact me personally. I do not guarantee that this code is 100% secure and it should be used at your own risk.
