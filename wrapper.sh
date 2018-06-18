@@ -36,10 +36,14 @@ uri_letter=${uri:5:1}
 uri_root_ls=$(ls -A "/mnt/$uri_letter")
 
 if [ ! -d "$uri" ] || [ -z "$uri_root_ls" ]; then
+  user=$(whoami)
+  user_uid=$(id -u "$user")
+  user_gid=$(id -g "$user")
+
   echo "wsl: attempting to mount drive $uri_letter:"
 
   wsl_sudo "mkdir -p /mnt/$uri_letter"
-  wsl_sudo "sudo mount -t drvfs $uri_letter: /mnt/$uri_letter"
+  wsl_sudo "sudo mount -o uid=$user_uid,gid=$user_gid -t drvfs $uri_letter: /mnt/$uri_letter"
 fi
 
 cd "$uri"
