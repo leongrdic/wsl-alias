@@ -18,7 +18,7 @@ fi
 echo
 echo "Moving files and fixing permissions"
 
-mv wsl-alias/* .
+cp -r wsl-alias/* .
 rm -rf wsl-alias
 
 chmod +x wrapper.sh
@@ -38,7 +38,6 @@ else
 	sudo su -c "echo '$user ALL=(wsl) NOPASSWD:ALL' >> /etc/sudoers"
 fi
 
-echo
 
 if [ -z "$(ls -A bin/win)" ]; then
 	echo "Choose a command you'd like to use to call bash from Windows"

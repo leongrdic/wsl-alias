@@ -35,7 +35,7 @@ Here's a quick overview of the features:
 
 First of all, make sure you're running the Fall Creators update or newer and have installed Ubuntu on Windows 10 (or another distribution) from the [Windows Store](https://msdn.microsoft.com/en-us/commandline/wsl/install_guide). Next, start up wsl (using the command `bash` or `wsl`) on Windows 10 as the default user and run this command:
 ```
-curl -o- https://raw.githubusercontent.com/leongrdic/wsl-alias/master/install.sh | bash
+bash <(curl -o- https://raw.githubusercontent.com/leongrdic/wsl-alias/master/install.sh)
 ```
 The install script will clone this repository and put it into the right directory with right permissions, create a new user and configure it.
 You will be asked to choose the __default alias__ (command that will actually call the `bash` command). You can just leave it empty, which sets it to `b`.
