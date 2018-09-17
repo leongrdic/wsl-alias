@@ -10,7 +10,7 @@ echo
 mkdir -p "$wslalias_dir"
 cd "$wslalias_dir"
 
-git clone -b "v2.0" https://github.com/leongrdic/wsl-alias.git update
+git clone -c advice.detachedHead=false -b "v2.0" https://github.com/leongrdic/wsl-alias.git update
 if [ -f "$wslalias_dir/env.sh" ]; then
 	rm -f update/env.sh
 fi
@@ -55,6 +55,7 @@ win_home=$(wslpath "$win_home")
 wslalias_dir_win="$win_home/wsl-alias"
 
 if [ -z "$(ls -A $wslalias_dir_win)" ]; then
+	echo
 	echo "Choose a default alias which you'll use to pass commands from Windows to wsl"
 	echo "Note: this alias can't be 'wsl' because that's an internal Windows command"
 
@@ -67,7 +68,7 @@ if [ -z "$(ls -A $wslalias_dir_win)" ]; then
 
 	cmd_path="$wslalias_dir_win/$setup_alias.bat"
 	cp template.bat "$cmd_path"
-	perl -pi -e 's/{alias_command}//g' "$cmd_path"
+	perl -pi -e 's/ {alias_command}//g' "$cmd_path"
 fi
 
 echo
