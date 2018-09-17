@@ -1,5 +1,8 @@
 @echo off
 
+REM  this file is generated using wsl-alias by leongrdic
+REM  https://github.com/leongrdic/wsl-alias
+
 if [%1]==[] goto empty
 
 set pwd=%cd%
