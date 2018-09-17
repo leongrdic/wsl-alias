@@ -4,7 +4,7 @@ wslalias_dir="$HOME/.wsl-alias"
 user=$(whoami)
 
 echo
-echo "Welcome to wsl-alias v2.0 installer"
+echo "Welcome to wsl-alias v2.1 installer"
 echo
 
 mkdir -p "$wslalias_dir"

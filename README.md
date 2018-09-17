@@ -35,7 +35,7 @@ Here's a quick overview of the features:
 
 First of all, make sure you're running the Spring Creators update or newer and have installed Ubuntu on Windows 10 (or another distribution) from the [Windows Store](https://msdn.microsoft.com/en-us/commandline/wsl/install_guide). Next, start up wsl (using the command `bash` or `wsl`) on Windows 10 as the default user and run this command:
 ```
-bash <(curl -o- https://raw.githubusercontent.com/leongrdic/wsl-alias/v2.0/install.sh)
+bash <(curl -o- https://raw.githubusercontent.com/leongrdic/wsl-alias/v2.1/install.sh)
 ```
 The install script will clone this repository and put it into your home directory with right permissions and help you configure access to the `mount` command withougt a password.
 You will be asked to choose the __default alias__ (command that will actually call your default shell). You can just leave it empty, which sets it to `b`.
