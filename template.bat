@@ -2,18 +2,20 @@
 
 if [%1]==[] goto empty
 
-set uri=%cd%
-set uri=%uri:\=\\%
+set pwd=%cd%
+set pwd=%pwd:\=\\%
 
 set cmd=%*
 set cmd=%cmd:\"=\\"%
 set cmd=%cmd:\'=\\'%
+set cmd=%cmd:\=/%
+set cmd=%cmd://=\\%
 set cmd=%cmd:"=\"%
 set cmd=%cmd:'=\'%
 
-wsl ~/.wsl/wrapper.sh '%cd%' {alias} %cmd%
+wsl ~/.wsl-alias/wrapper.sh '%pwd%' {alias_command} %cmd%
 
 goto :eof
 
 :empty
-wsl ~/.wsl/wrapper.sh '%cd%' {alias}
+wsl ~/.wsl-alias/wrapper.sh '%pwd%' {alias_command}

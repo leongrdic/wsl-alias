@@ -1,55 +1,41 @@
 #!/bin/bash
 
 # getting the arguments
-
-uri="$1"
+pwd_win="$1"
 shift
 cmd="$@"
 
 # loading the custom environment
-
-wsl_dir="$HOME/.wsl"
-wsl_interactive="0"
-
+wslalias_dir="$HOME/.wsl-alias"
+wslalias_interactive="0"
 if [ -z "$cmd" ]; then
-  wsl_interactive="1"
+  wslalias_interactive="1"
+fi
+if [ -f "$wslalias_dir/env.sh" ]; then
+  source "$wslalias_dir/env.sh"
 fi
 
-wsl_sudo () {
-  sudo -u "wsl" sudo $1
-}
-
-if [ -f "$wsl_dir/env.sh" ]; then
-  source "$wsl_dir/env.sh"
-fi
-
-# parsing the uri
-
-uri=$(echo "$uri" | sed 's/\\/\//g')
-uri=$(echo "$uri" | sed 's/://g')
-uri=$(echo "$uri" | sed 's/^./\L&\E/')
-uri="/mnt/$uri"
+# parsing the path
+pwd_wsl=$(echo "$pwd_win" | sed 's/\\/\//g')
+pwd_wsl=$(echo "$pwd_wsl" | sed 's/://g')
+pwd_wsl=$(echo "$pwd_wsl" | sed 's/^./\L&\E/')
+pwd_wsl="/mnt/$pwd_wsl"
 
 # mounting the drive if its not mounted
-
-uri_letter=${uri:5:1}
-uri_root_ls=$(ls -A "/mnt/$uri_letter")
-
-if [ ! -d "$uri" ] || [ -z "$uri_root_ls" ]; then
+pwd_drive=${pwd_wsl:5:1}
+pwd_drive_ls=$(ls -A "/mnt/$pwd_drive" 2>/dev/null)
+if [ ! -d "$pwd_wsl" ] || [ -z "$pwd_drive_ls" ]; then
   user=$(whoami)
   user_uid=$(id -u "$user")
   user_gid=$(id -g "$user")
-
-  echo "wsl: attempting to mount drive $uri_letter:"
-
-  wsl_sudo "mkdir -p /mnt/$uri_letter"
-  wsl_sudo "sudo mount -o uid=$user_uid,gid=$user_gid -t drvfs $uri_letter: /mnt/$uri_letter"
+  echo "wsl: attempting to mount drive $pwd_drive:"
+  mkdir -p "/mnt/$pwd_drive"
+  sudo mount -o uid=$user_uid,gid=$user_gid -t drvfs $pwd_drive: /mnt/$pwd_drive
 fi
 
-cd "$uri"
-
+cd "$pwd_wsl" 2>/dev/null
 if [ -z "$cmd" ]; then
-  cmd="bash"
+  cmd="$SHELL"
 fi
 
 eval "$cmd"

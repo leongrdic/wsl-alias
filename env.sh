@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # adding our linux bin directory to path so you can access the 'wsl-add' command
-PATH=$PATH:$HOME/.wsl/bin/linux
+PATH=$PATH:$HOME/.wsl-alias/bin
 
-if [ $wsl_interactive == "1" ]; then
+if [ $wslalias_interactive == "1" ]; then
   # execute only if started without command argument
   echo "Welcome to wsl-alias! Put your environment variables in ~/.wsl/env.sh"
 fi
@@ -11,8 +11,5 @@ fi
 # define environment variables
 #   export example="something"
 
-# execute command as root
-#   wsl_sudo "whoami"
-
 # always mount a drive (regardless of your current directory)
-#   wsl_sudo "sudo mount -t drvfs Z: /mnt/z"
+#   sudo mount -o uid=1000,gid=1000 -t drvfs Z: /mnt/z
