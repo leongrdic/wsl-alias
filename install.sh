@@ -4,7 +4,7 @@ wslalias_dir="$HOME/.wsl-alias"
 user=$(whoami)
 
 echo
-echo "Welcome to wsl-alias v2.1 installer"
+echo "Welcome to wsl-alias v2.2 installer"
 echo
 
 mkdir -p "$wslalias_dir"
@@ -68,7 +68,7 @@ if [ -z "$(ls -A $wslalias_dir_win)" ]; then
 
 	cmd_path="$wslalias_dir_win/$setup_alias.bat"
 	cp template.bat "$cmd_path"
-	perl -pi -e 's/ {alias_command}//g' "$cmd_path"
+	perl -pi -e 's/ \{alias_command\}//g' "$cmd_path"
 fi
 
 echo
