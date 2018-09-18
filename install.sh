@@ -1,16 +1,17 @@
 #!/bin/bash
 
+wslalias_version="v2.3"
 wslalias_dir="$HOME/.wsl-alias"
 user=$(whoami)
 
 echo
-echo "Welcome to wsl-alias v2.2 installer"
+echo "Welcome to wsl-alias $wslalias_version installer"
 echo
 
 mkdir -p "$wslalias_dir"
 cd "$wslalias_dir"
 
-git clone -c advice.detachedHead=false -b "v2.0" https://github.com/leongrdic/wsl-alias.git update
+git clone -c advice.detachedHead=false -b "$wslalias_version" https://github.com/leongrdic/wsl-alias.git update
 if [ -f "$wslalias_dir/env.sh" ]; then
 	rm -f update/env.sh
 fi
