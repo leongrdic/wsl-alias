@@ -44,7 +44,7 @@ if [ -z "$cmd" ]; then
 fi
 
 # Replace Windows file path in arguments
-while [[ $cmd =~ (.*)([A-Z]):(.*) ]]; do
+while [[ $cmd =~ (.*)([A-Za-z]):(.*) ]]; do
   letter=$(echo "${BASH_REMATCH[2]}" | tr '[:upper:]' '[:lower:]')
   cmd=${BASH_REMATCH[1]}${wsl_mount_root}${letter}${BASH_REMATCH[3]}
 done
