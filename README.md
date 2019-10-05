@@ -28,6 +28,7 @@ Here's a quick overview of the features:
 -   pass commands to WSL without escaping them
 -   use Linux programs and scripts as if they were installed in Windows
 -   translates your current Windows path into the WSL path (for all drives)
+-   translates Windows paths in command arguments to WSL paths (relative and absolute) - thanks to [hustlahusky](https://github.com/hustlahusky)
 -   a single file with environment variables and code that will be loaded when executing commands or entering an interactive shell (solves [this](https://github.com/Microsoft/BashOnWindows/issues/219))
 -   automatically mount the drives that WSL doesn't - with different filesystems and even network drives (solves [this](https://superuser.com/a/1133984/413987))
 
@@ -35,7 +36,7 @@ Here's a quick overview of the features:
 
 First of all, make sure you're running the Spring Creators update or newer and have installed Ubuntu on Windows 10 (or another distribution) from the [Windows Store](https://msdn.microsoft.com/en-us/commandline/wsl/install_guide). Next, start up wsl (using the command `bash` or `wsl`) on Windows 10 as the default user and run this command:
 ```
-bash <(curl -o- https://raw.githubusercontent.com/leongrdic/wsl-alias/v2.3/install.sh)
+bash <(curl -o- https://raw.githubusercontent.com/leongrdic/wsl-alias/v2.4/install.sh)
 ```
 The install script will clone this repository and put it into your home directory with right permissions and help you configure access to the `mount` command withougt a password.
 You will be asked to choose the __default alias__ (command that will actually call your default shell). You can just leave it empty, which sets it to `b`.
@@ -61,7 +62,7 @@ wsl-alias remove [name]              # removes an existing alias
 Make sure you don't remove the default alias (the one you specified during installation) or you might have to reinstall `wsl-alias`. This is because the command `wsl-alias` only works when you're accessing WSL using one of the existing aliases.
 
 ## `env.sh` script
-Yyou can use the shell script `~/.wsl-alias/env.sh` to define environment variables, mount drives or run other scripts every time you use any of your aliases. For example you can include the _`nvm` initialization code_ or `ssh-agent` setup there.
+You can use the shell script `~/.wsl-alias/env.sh` to define environment variables, mount drives or run other scripts every time you use any of your aliases. For example you can include the _`nvm` initialization code_ or `ssh-agent` setup there.
 
 This script also directly serves as a replacement for `.bashrc`, of course only for user-added commands and variables. (note they will only be accessible when using one of your aliases)
 
