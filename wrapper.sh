@@ -15,9 +15,12 @@ if [ -f "$wslalias_dir/env.sh" ]; then
   source "$wslalias_dir/env.sh"
 fi
 
+# find the Windows drive mount root (thx to github.com/hustlahusky)
 wsl_mount_root="/mnt/"
-if grep -q root /etc/wsl.conf; then
-  wsl_mount_root=$(cat /etc/wsl.conf | awk '/root/ {print $3}')
+if [ -f "/etc/wsl.conf" ]; then
+  if grep -q root /etc/wsl.conf; then
+    wsl_mount_root=$(cat /etc/wsl.conf | awk '/root/ {print $3}')
+  fi
 fi
 
 # parsing the path
@@ -43,7 +46,7 @@ if [ -z "$cmd" ]; then
   cmd="$SHELL"
 fi
 
-# Replace Windows file path in arguments
+# replace Windows file path in arguments (thx to github.com/hustlahusky)
 while [[ $cmd =~ (.*)([A-Za-z]):(.*) ]]; do
   letter=$(echo "${BASH_REMATCH[2]}" | tr '[:upper:]' '[:lower:]')
   cmd=${BASH_REMATCH[1]}${wsl_mount_root}${letter}${BASH_REMATCH[3]}
