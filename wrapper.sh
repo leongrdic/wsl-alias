@@ -15,22 +15,27 @@ if [ -f "$wslalias_dir/env.sh" ]; then
   source "$wslalias_dir/env.sh"
 fi
 
+wsl_mount_root="/mnt/"
+if grep -q root /etc/wsl.conf; then
+  wsl_mount_root=$(cat /etc/wsl.conf | awk '/root/ {print $3}')
+fi
+
 # parsing the path
 pwd_wsl=$(echo "$pwd_win" | sed 's/\\/\//g')
 pwd_wsl=$(echo "$pwd_wsl" | sed 's/://g')
 pwd_wsl=$(echo "$pwd_wsl" | sed 's/^./\L&\E/')
-pwd_wsl="/mnt/$pwd_wsl"
+pwd_wsl="$wsl_mount_root$pwd_wsl"
 
 # mounting the drive if its not mounted
-pwd_drive=${pwd_wsl:5:1}
-pwd_drive_ls=$(ls -A "/mnt/$pwd_drive" 2>/dev/null)
+pwd_drive=${pwd_wsl:${#wsl_mount_root}:1}
+pwd_drive_ls=$(ls -A "$wsl_mount_root$pwd_drive" 2>/dev/null)
 if [ ! -d "$pwd_wsl" ] || [ -z "$pwd_drive_ls" ]; then
   user=$(whoami)
   user_uid=$(id -u "$user")
   user_gid=$(id -g "$user")
   echo "wsl: attempting to mount drive $pwd_drive:"
-  mkdir -p "/mnt/$pwd_drive"
-  sudo mount -o uid=$user_uid,gid=$user_gid -t drvfs $pwd_drive: /mnt/$pwd_drive
+  mkdir -p "$wsl_mount_root$pwd_drive"
+  sudo mount -o uid=$user_uid,gid=$user_gid -t drvfs $pwd_drive: $wsl_mount_root$pwd_drive
 fi
 
 cd "$pwd_wsl" 2>/dev/null
@@ -38,4 +43,10 @@ if [ -z "$cmd" ]; then
   cmd="$SHELL"
 fi
 
-eval "$cmd"
+# Replace Windows file path in arguments
+while [[ $cmd =~ (.*)([A-Za-z]):(.*) ]]; do
+  letter=$(echo "${BASH_REMATCH[2]}" | tr '[:upper:]' '[:lower:]')
+  cmd=${BASH_REMATCH[1]}${wsl_mount_root}${letter}${BASH_REMATCH[3]}
+done
+
+eval "$cmd; exit $?"
