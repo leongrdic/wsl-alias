@@ -1,6 +1,6 @@
 #!/bin/bash
 
-wslalias_version="v2.3"
+wslalias_version="v2.4"
 wslalias_dir="$HOME/.wsl-alias"
 user=$(whoami)
 
@@ -51,11 +51,13 @@ if [ "$setup_sudo" = "y" ]; then
 	fi
 fi
 
-win_home=$(cmd.exe /c echo %userprofile% | sed -e 's/\r//g')
+win_home=$(cmd.exe /c echo %userprofile% | sed -e 's/\r//g') 2>/dev/null
 win_home=$(wslpath "$win_home")
 wslalias_dir_win="$win_home/wsl-alias"
 
 if [ -z "$(ls -A $wslalias_dir_win)" ]; then
+	# first time install
+
 	echo
 	echo "Choose a default alias which you'll use to pass commands from Windows to wsl"
 	echo "Note: this alias can't be 'wsl' because that's an internal Windows command"
@@ -70,16 +72,32 @@ if [ -z "$(ls -A $wslalias_dir_win)" ]; then
 	cmd_path="$wslalias_dir_win/$setup_alias.bat"
 	cp template.bat "$cmd_path"
 	perl -pi -e 's/ \{alias_command\}//g' "$cmd_path"
-fi
 
-echo
-echo
-echo "The installation has completed!"
-echo
-echo "Please add the following directory to your PATH enviroment variable in Windows:"
-echo "    %userprofile%\\wsl-alias"
-echo
-echo "After that you'll be able to use it to call wsl commands from Windows"
-echo "To add a new alias from Windows, use:"
-echo "    $setup_alias wsl-alias"
-echo
+	echo
+	echo
+	echo "The installation has completed!"
+	echo
+	echo "Add the following directory to your PATH enviroment variable in Windows:"
+	echo "    %userprofile%\\wsl-alias"
+	echo
+	echo "After that you'll be able to use it to call wsl commands from Windows"
+	echo "To add a new alias from Windows, use:"
+	echo "    $setup_alias wsl-alias"
+	echo
+else
+	# update
+
+	echo
+	echo
+	echo "The update has completed!"
+	echo
+	echo "Make sure the following directory is still present"
+	echo "in your PATH enviroment variable in Windows:"
+	echo "    %userprofile%\\wsl-alias"
+	echo
+	echo "Note: you may have to recreate your aliases after the update."
+	echo "Please refer to the GitHub releases page for more info."
+	echo "    https://github.com/leongrdic/wsl-alias/releases"
+	echo
+	setup_alias="[default alias]"
+fi
