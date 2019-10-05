@@ -51,7 +51,7 @@ if [ "$setup_sudo" = "y" ]; then
 	fi
 fi
 
-win_home=$(cmd.exe /c echo %userprofile% | sed -e 's/\r//g') 2>/dev/null
+win_home=$(cmd.exe /c echo %userprofile% 2>/dev/null | sed -e 's/\r//g')
 win_home=$(wslpath "$win_home")
 wslalias_dir_win="$win_home/wsl-alias"
 
