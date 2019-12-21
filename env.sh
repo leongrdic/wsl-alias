@@ -5,7 +5,7 @@ PATH=$PATH:$HOME/.wsl-alias/bin
 
 if [ $wslalias_interactive == "1" ]; then
   # execute only if started without command argument
-  echo "Welcome to wsl-alias! Put your environment variables in ~/.wsl/env.sh"
+  echo "Welcome to wsl-alias! Put your environment variables in ~/.wsl-alias/env.sh"
 fi
 
 # define environment variables
